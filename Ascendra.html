@@ -6,7 +6,7 @@
        connect-src 'none' blocks any data exfiltration. Allows only the pinned
        jsDelivr Tailwind runtime + inline styles/scripts the app relies on. -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.ytimg.com https://img.youtube.com https://i.vimeocdn.com; font-src 'self' data:; connect-src 'self' https://www.youtube.com https://youtube.googleapis.com https://s.ytimg.com https://i.ytimg.com https://player.vimeo.com; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com;">
-  <meta name="referrer" content="no-referrer">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Ascendra · Rise Above. Reclaim Your Life.</title>
   <meta name="description" content="Ascendra — rise above addiction. Track streaks, get AI coaching, join a recovery community, and transform your life.">
@@ -758,7 +758,9 @@ function openVideoModal(video) {
     } else {
       // ── HTTP server: use iframe with autoplay ───────────────────
       const sep = video.src.includes('?') ? '&' : '?';
-      const finalSrc = video.src + sep + 'rel=0&autoplay=1';
+      // Pass the page origin so YouTube can verify the embedding domain (prevents Error 153)
+      const originParam = '&origin=' + encodeURIComponent(window.location.origin);
+      const finalSrc = video.src + sep + 'rel=0&autoplay=1&playsinline=1&enablejsapi=1' + originParam;
       const playerDiv = h('div', { class: 'aspect-video bg-black overflow-hidden sm:mx-2 sm:rounded-2xl relative' });
 
       // Iframe
