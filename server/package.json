@@ -1,0 +1,21 @@
+{
+  "name": "ascendra-llm-proxy",
+  "version": "0.1.0",
+  "description": "Small, secure LLM proxy for Ascendra coach (server-side wrapper for OpenAI)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "NODE_ENV=development node index.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.7.0",
+    "helmet": "^6.0.1",
+    "xss": "^1.0.14"
+  }
+}
